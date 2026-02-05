@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="HoopsIQ" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="icons/icon-180.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>HoopsIQ</title>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <h1>HoopsIQ</h1>
+      </div>
+      <div class="header-actions"></div>
+    </header>
+
+    <main>
+      <section class="panel" id="panel-game" role="tabpanel">
+        <div class="card">
+          <div class="card-title">Active Games</div>
+          <div id="active-games" class="list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Completed Games</div>
+          <div id="final-games" class="list"></div>
+        </div>
+      </section>
+
+      <section class="panel active" id="panel-kids" role="tabpanel">
+        <div class="card">
+          <div class="card-title">Roster</div>
+          <div id="kids-list" class="list"></div>
+          <div class="row roster-actions">
+            <button id="open-add-kid" class="ghost" type="button">New Player</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-season" role="tabpanel">
+        <div class="card">
+          <div class="card-title">Season Totals</div>
+          <div class="row">
+            <div class="field">
+              <label for="season-select">Season</label>
+              <select id="season-select"></select>
+            </div>
+          </div>
+          <div id="season-summary" class="summary"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-settings" role="tabpanel">
+        <div class="card">
+          <div class="card-title">Data</div>
+          <p class="muted">Your data is stored locally on this device. Export to back it up, or import on a new phone.</p>
+          <div class="row">
+            <button id="backup-btn" class="primary" type="button">Download Backup</button>
+            <button id="reset-btn" class="ghost" type="button">Reset All Data</button>
+          </div>
+          <div class="row">
+            <button class="ghost" id="export-btn" type="button">Export</button>
+            <button class="ghost" id="import-btn" type="button">Import</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-tabs" role="tablist">
+      <button class="tab active" data-tab="kids" role="tab">Players</button>
+      <button class="tab" data-tab="game" role="tab">Games</button>
+      <button class="tab" data-tab="season" role="tab">Stats</button>
+      <button class="tab" data-tab="settings" role="tab">Settings</button>
+    </nav>
+
+    <dialog id="import-dialog">
+      <form method="dialog" class="dialog-card">
+        <h2>Import Backup</h2>
+        <p class="muted">Paste your backup JSON here. This will replace the current data.</p>
+        <textarea id="import-text" rows="8" placeholder="{ ... }"></textarea>
+        <div class="row">
+          <button id="import-confirm" class="primary" type="button">Import</button>
+          <button class="ghost" value="cancel" type="submit">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="add-kid-dialog">
+      <form method="dialog" class="dialog-card">
+        <h2>Add a Kid</h2>
+        <div class="row">
+          <div class="field">
+            <label for="kid-name">Name</label>
+            <input id="kid-name" type="text" placeholder="Ava" />
+          </div>
+          <div class="field">
+            <label for="kid-number">Number</label>
+            <input id="kid-number" type="text" placeholder="#12" />
+          </div>
+          <div class="field">
+            <label for="kid-notes">Notes</label>
+            <input id="kid-notes" type="text" placeholder="Position / team" />
+          </div>
+        </div>
+        <div class="row dialog-actions">
+          <button id="add-kid" class="primary" type="button">Add Player</button>
+          <button class="ghost" value="cancel" type="submit">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="new-game-dialog">
+      <form method="dialog" class="dialog-card">
+        <h2>New Game</h2>
+        <div class="row">
+          <div class="field">
+            <label for="new-game-opponent">Opponent</label>
+            <select id="opponent-select"></select>
+            <input id="new-game-opponent" type="text" placeholder="Enter opponent" class="hidden" />
+          </div>
+          <div class="field">
+            <label for="new-game-season">Season</label>
+            <select id="new-game-season"></select>
+          </div>
+        </div>
+        <div class="row dialog-actions">
+          <button id="confirm-new-game" class="primary" type="button">Start Game</button>
+          <button class="ghost" value="cancel" type="submit">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="final-stats-dialog">
+      <form method="dialog" class="dialog-card">
+        <h2 id="final-stats-title">Final Stats</h2>
+        <div id="final-stats-meta" class="final-meta">
+          <div class="final-meta-title" id="final-stats-game">Game</div>
+          <div class="final-meta-opponent muted" id="final-stats-opponent">Opponent</div>
+          <div class="final-meta-extra">
+            <span class="muted" id="final-stats-minutes"></span>
+          </div>
+        </div>
+        <div id="final-stats-result" class="result-tag"></div>
+        <div id="final-stats-body" class="active-kid-stats roster-stats"></div>
+        <div id="final-stats-shooting" class="final-shooting"></div>
+        <div class="row dialog-actions">
+          <button class="ghost" value="cancel" type="submit">Close</button>
+        </div>
+      </form>
+    </dialog>
+
+    <section id="game-mode" class="game-mode">
+      <div class="game-mode-header">
+        <button id="exit-game-mode" class="ghost" type="button">Exit</button>
+        <div class="game-mode-title">Game Stats</div>
+        <button id="end-game-mode" class="primary" type="button">End Game</button>
+      </div>
+
+      <div class="card game-mode-card">
+        <div class="card-title" id="game-mode-opponent">Opponent</div>
+        <div class="active-kid-card">
+          <div>
+            <div id="active-kid-name" class="active-kid-name">Select a kid</div>
+            <div id="active-kid-meta" class="muted">No kid selected</div>
+          </div>
+          <div id="active-kid-points" class="active-kid-points">0 PTS</div>
+        </div>
+        <div id="active-kid-fg" class="active-kid-fg">
+          <span id="active-kid-fg-text" class="muted">Field Goals: 0/0 = 0%</span>
+          <span id="active-kid-eff" class="muted">EFF 0</span>
+        </div>
+        <div class="active-kid-stats" id="active-kid-stats"></div>
+      </div>
+
+      <div class="card game-mode-card">
+        <div class="card-title">Stat Buttons</div>
+        <div class="shot-grid">
+          <div class="shot-row">
+            <button class="stat stat-made" data-stat="ft">Made FT</button>
+            <div class="shot-mid">
+              <div class="shot-label">Free throws</div>
+              <div class="shot-percent" id="ft-percent">0%</div>
+              <div class="shot-line" id="ft-line">0/0</div>
+            </div>
+            <button class="stat stat-miss" data-stat="miss_ft">Miss FT</button>
+          </div>
+          <div class="shot-row">
+            <button class="stat stat-made" data-stat="fg2">Made 2PT</button>
+            <div class="shot-mid">
+              <div class="shot-label">2PT shots</div>
+              <div class="shot-percent" id="fg2-percent">0%</div>
+              <div class="shot-line" id="fg2-line">0/0</div>
+            </div>
+            <button class="stat stat-miss" data-stat="miss_2">Miss 2PT</button>
+          </div>
+          <div class="shot-row">
+            <button class="stat stat-made" data-stat="fg3">Made 3PT</button>
+            <div class="shot-mid">
+              <div class="shot-label">3PT shots</div>
+              <div class="shot-percent" id="fg3-percent">0%</div>
+              <div class="shot-line" id="fg3-line">0/0</div>
+            </div>
+            <button class="stat stat-miss" data-stat="miss_3">Miss 3PT</button>
+          </div>
+        </div>
+        <div class="stats-grid stats-grid-bottom">
+          <button class="stat stat-orange" data-stat="oreb">Off Reb</button>
+          <button class="stat stat-orange" data-stat="dreb">Def Reb</button>
+          <button class="stat stat-orange" data-stat="ast">Assist</button>
+          <button class="stat stat-orange" data-stat="stl">Steal</button>
+          <button class="stat stat-orange" data-stat="blk">Block</button>
+          <button class="stat stat-orange" data-stat="tov">Turnover</button>
+          <button class="stat stat-orange" data-stat="foul">Foul</button>
+          <button class="stat stat-orange" data-stat="gdef">Good Def</button>
+          <button class="stat stat-orange" data-stat="min">
+            Minute
+            <span class="stat-info" data-minutes-info>i</span>
+          </button>
+        </div>
+        <div class="row compact">
+          <button id="undo-btn" class="ghost" type="button">Undo Last</button>
+          <button id="start-over" class="ghost" type="button">Start Over</button>
+        </div>
+      </div>
+    </section>
+
+    <dialog id="end-game-dialog">
+      <form method="dialog" class="dialog-card">
+        <h2>Game Result</h2>
+        <p class="muted">How did this game turn out?</p>
+        <div class="row">
+          <button id="result-win" class="btn-win" type="button">Win</button>
+          <button id="result-loss" class="btn-loss" type="button">Loss</button>
+        </div>
+        <div class="row dialog-actions">
+          <button class="ghost" value="cancel" type="submit">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="minutes-dialog">
+      <form method="dialog" class="dialog-card">
+        <div class="dialog-header">
+          <h2>Minutes</h2>
+          <button id="minutes-close" class="close-x" value="cancel" type="submit">×</button>
+        </div>
+        <p class="muted">Choose how you want to track play time.</p>
+        <div class="row minutes-row">
+          <div class="mode-toggle minutes-toggle">
+            <button id="minutes-mode-manual" class="toggle active" type="button">Manual</button>
+            <button id="minutes-mode-stopwatch" class="toggle" type="button">Stopwatch</button>
+          </div>
+        </div>
+        <div class="row minutes-row minutes-manual">
+          <div class="field">
+            <label for="minutes-total">Enter total minutes</label>
+            <input id="minutes-total" type="number" min="0" step="1" placeholder="0" />
+          </div>
+          <button id="minutes-save-total" class="primary align-end" type="button">Save Minutes</button>
+        </div>
+        <div class="row minutes-row minutes-manual">
+          <div class="field">
+            <label for="minutes-default">Default minutes per game</label>
+            <input id="minutes-default" type="number" min="0" step="1" placeholder="0" />
+          </div>
+          <button id="minutes-save-default" class="ghost align-end" type="button">Set Default</button>
+        </div>
+        <div class="row minutes-row minutes-stopwatch hidden">
+          <div class="muted">Stopwatch mode is enabled. Tap the Minute button to start/stop.</div>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
