@@ -11,6 +11,11 @@
   --radius: 12px;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -18,8 +23,9 @@
 body {
   margin: 0;
   font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
-  background: radial-gradient(circle at top, rgba(249, 115, 22, 0.15), transparent 40%),
-    linear-gradient(180deg, #f8fafc 0%, #eef2f6 100%);
+  background: linear-gradient(180deg, #4b5563 0%, #e7eef9 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   color: var(--ink);
 }
 
@@ -34,7 +40,19 @@ body {
   backdrop-filter: blur(8px);
   background: rgba(248, 250, 252, 0.85);
   z-index: 5;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  border-bottom: none;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.app-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: rgba(17, 24, 39, 0.2);
+  pointer-events: none;
 }
 
 h1 {
@@ -92,7 +110,8 @@ main {
   align-items: start;
   background: rgba(248, 250, 252, 0.95);
   backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(226, 232, 240, 0.9);
+  border-top: none;
+  box-shadow: 0 -1px 0 rgba(17, 24, 39, 0.08);
   z-index: 10;
 }
 
