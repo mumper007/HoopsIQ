@@ -272,6 +272,8 @@ button {
   cursor: pointer;
   background: var(--line);
   color: var(--ink);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button.primary {
@@ -357,6 +359,16 @@ button.ghost {
   letter-spacing: 0.05em;
   font-weight: 600;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 80ms ease, filter 80ms ease, box-shadow 80ms ease;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+}
+
+.stat:active {
+  transform: translateY(1px) scale(0.985);
+  filter: brightness(0.92);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.2);
 }
 
 .stat-made {

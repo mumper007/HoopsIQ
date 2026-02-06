@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Stop HoopsIQ Server",
+      "type": "shell",
+      "command": "pids=$(lsof -ti tcp:8080); if [ -n \"$pids\" ]; then kill -9 $pids; else echo \"No server running on 8080\"; fi",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      }
+    },
+    {
+      "label": "Start HoopsIQ Server",
+      "type": "shell",
+      "command": "python3 -m http.server 8080 --bind 0.0.0.0",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "runOptions": {
+        "reevaluateOnRerun": true
+      }
+    }
+  ]
+}

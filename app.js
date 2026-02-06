@@ -290,14 +290,7 @@ function bindEndGameControls() {
 
 function bindStatButtons() {
   document.querySelectorAll(".stat").forEach((button) => {
-    const info = button.querySelector("[data-minutes-info]");
-    if (info) {
-      info.addEventListener("click", (event) => {
-        event.stopPropagation();
-        openMinutesDialog();
-      });
-    }
-    button.addEventListener("click", () => {
+    const triggerStat = () => {
       const stat = button.dataset.stat;
       if (stat === "min") {
         const game = getActiveGame();
@@ -310,12 +303,40 @@ function bindStatButtons() {
             startStopwatch(game);
           }
           saveState();
-          renderAll();
+          refreshActiveGameUi();
           return;
         }
       }
       applyStat(stat);
-    });
+    };
+
+    const info = button.querySelector("[data-minutes-info]");
+    if (info) {
+      info.addEventListener("pointerdown", (event) => {
+        event.stopPropagation();
+      });
+      info.addEventListener("click", (event) => {
+        event.stopPropagation();
+        openMinutesDialog();
+      });
+    }
+
+    if ("PointerEvent" in window) {
+      button.addEventListener("pointerdown", (event) => {
+        if (event.button !== undefined && event.button !== 0) return;
+        event.preventDefault();
+        triggerStat();
+      });
+      button.addEventListener("click", (event) => {
+        if (event.detail === 0) {
+          triggerStat();
+          return;
+        }
+        event.preventDefault();
+      });
+    } else {
+      button.addEventListener("click", triggerStat);
+    }
   });
 
   undoBtn.addEventListener("click", () => {
@@ -328,7 +349,7 @@ function bindStatButtons() {
       (game.stats[last.kidId][last.stat] || 0) - last.delta
     );
     saveState();
-    renderAll();
+    refreshActiveGameUi();
   });
 }
 
@@ -985,7 +1006,14 @@ function applyStat(stat) {
     });
   }
   saveState();
-  renderAll();
+  refreshActiveGameUi();
+}
+
+function refreshActiveGameUi() {
+  renderActiveGames();
+  updateActiveStatus();
+  updateShootingPercents();
+  updateStatBadges();
 }
 
 function updateActiveStatus() {
