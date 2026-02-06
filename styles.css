@@ -24,7 +24,7 @@ body {
 }
 
 .app-header {
-  padding: 24px 24px 12px;
+  padding: 30px 24px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,6 +40,7 @@ body {
 h1 {
   margin: 0;
   font-size: 1.7rem;
+  margin-left: 6px;
 }
 
 .eyebrow {
@@ -50,7 +51,7 @@ h1 {
 }
 
 main {
-  padding: 0 16px 90px;
+  padding: 0 16px 132px;
   max-width: 980px;
   margin: 0 auto;
 }
@@ -83,14 +84,26 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 10px 12px calc(env(safe-area-inset-bottom) + 10px);
+  padding: 12px 12px calc(env(safe-area-inset-bottom, 0px) + 18px);
+  min-height: 84px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
+  align-items: start;
   background: rgba(248, 250, 252, 0.95);
   backdrop-filter: blur(12px);
   border-top: 1px solid rgba(226, 232, 240, 0.9);
   z-index: 10;
+}
+
+.bottom-tabs .tab {
+  align-self: start;
+}
+
+@supports (padding: constant(safe-area-inset-bottom)) {
+  .bottom-tabs {
+    padding-bottom: calc(constant(safe-area-inset-bottom) + 18px);
+  }
 }
 
 .game-mode {
@@ -234,6 +247,20 @@ button.ghost {
 .header-actions {
   display: flex;
   gap: 8px;
+}
+
+#safe-area-debug-toggle.active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+#safe-area-debug-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 10000;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
 }
 
 .spacer {
@@ -758,6 +785,50 @@ dialog[open] {
 
 dialog.open-fallback {
   display: flex;
+}
+
+.safe-area-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: none;
+  z-index: 9999;
+}
+
+body.debug-safe .safe-area-overlay {
+  display: block;
+}
+
+.safe-area-frame {
+  position: absolute;
+  inset: 6px;
+  border-radius: 44px;
+  border: 2px dashed rgba(239, 68, 68, 0.7);
+  box-shadow: inset 0 0 0 9999px rgba(239, 68, 68, 0.06);
+}
+
+.safe-area-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(env(safe-area-inset-bottom, 0px) + 34px);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(239, 68, 68, 0.16),
+    rgba(239, 68, 68, 0.16) 10px,
+    rgba(239, 68, 68, 0.08) 10px,
+    rgba(239, 68, 68, 0.08) 20px
+  );
+}
+
+.safe-area-corners {
+  position: absolute;
+  inset: 0;
+  border-radius: 44px;
+  box-shadow:
+    inset 0 14px 18px -10px rgba(239, 68, 68, 0.6),
+    inset 0 -14px 18px -10px rgba(239, 68, 68, 0.6);
 }
 
 @media (max-width: 600px) {

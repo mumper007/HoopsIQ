@@ -20,7 +20,9 @@
       <div>
         <h1>HoopsIQ</h1>
       </div>
-      <div class="header-actions"></div>
+      <div class="header-actions">
+        <button id="safe-area-debug-toggle" class="ghost" type="button">Debug: Off</button>
+      </div>
     </header>
 
     <main>
@@ -279,6 +281,12 @@
         </div>
       </form>
     </dialog>
+
+    <div class="safe-area-overlay" aria-hidden="true">
+      <div class="safe-area-frame"></div>
+      <div class="safe-area-bottom"></div>
+      <div class="safe-area-corners"></div>
+    </div>
 
     <script src="app.js"></script>
   </body>

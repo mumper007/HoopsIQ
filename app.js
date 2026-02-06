@@ -1,4 +1,5 @@
 const STORAGE_KEY = "hoops_stats_v1";
+const SAFE_DEBUG_KEY = "hoops_safe_debug_v1";
 
 const DEFAULT_STATE = {
   kids: [],
@@ -105,10 +106,12 @@ const resetBtn = document.getElementById("reset-btn");
 const importDialog = document.getElementById("import-dialog");
 const importText = document.getElementById("import-text");
 const importConfirm = document.getElementById("import-confirm");
+const safeAreaDebugToggle = document.getElementById("safe-area-debug-toggle");
 
 init();
 
 function init() {
+  initSafeAreaDebug();
   bindTabs();
   bindGameModeControls();
   bindKidsControls();
@@ -118,6 +121,24 @@ function init() {
   bindDataButtons();
   renderAll();
   registerServiceWorker();
+}
+
+function initSafeAreaDebug() {
+  const enabled = localStorage.getItem(SAFE_DEBUG_KEY) === "1";
+  setSafeAreaDebug(enabled);
+  if (!safeAreaDebugToggle) return;
+  safeAreaDebugToggle.addEventListener("click", () => {
+    const next = !document.body.classList.contains("debug-safe");
+    setSafeAreaDebug(next);
+  });
+}
+
+function setSafeAreaDebug(enabled) {
+  document.body.classList.toggle("debug-safe", enabled);
+  localStorage.setItem(SAFE_DEBUG_KEY, enabled ? "1" : "0");
+  if (!safeAreaDebugToggle) return;
+  safeAreaDebugToggle.textContent = enabled ? "Debug: On" : "Debug: Off";
+  safeAreaDebugToggle.classList.toggle("active", enabled);
 }
 
 function bindTabs() {
@@ -1352,9 +1373,18 @@ function downloadBackup() {
 }
 
 function registerServiceWorker() {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js");
-  }
+  if (!("serviceWorker" in navigator)) return;
+
+  // Avoid sticky cache behavior while developing locally.
+  const host = window.location.hostname;
+  const isLocalHost =
+    host === "localhost" ||
+    host === "127.0.0.1" ||
+    host === "::1" ||
+    host.endsWith(".local");
+  if (isLocalHost) return;
+
+  navigator.serviceWorker.register("/sw.js");
 }
 
 function createId() {
