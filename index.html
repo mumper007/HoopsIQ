@@ -18,11 +18,12 @@
   <body>
     <header class="app-header">
       <div>
-        <h1>HoopsIQ</h1>
+        <div class="title-wrap">
+          <span class="title-ball" aria-hidden="true"></span>
+          <h1>HoopsIQ</h1>
+        </div>
       </div>
-      <div class="header-actions">
-        <button id="safe-area-debug-toggle" class="ghost" type="button">Debug: Off</button>
-      </div>
+      <div class="header-actions"></div>
     </header>
 
     <main>
@@ -72,6 +73,9 @@
           <div class="row">
             <button class="ghost" id="export-btn" type="button">Export</button>
             <button class="ghost" id="import-btn" type="button">Import</button>
+          </div>
+          <div class="row">
+            <button id="safe-area-debug-toggle" class="ghost" type="button">Debug: Off</button>
           </div>
         </div>
       </section>
