@@ -232,6 +232,7 @@ main {
   position: relative;
   align-self: end;
   width: 100%;
+  transform: translateY(12px);
 }
 
 .bottom-tabs .tab:not(:last-child)::after {
@@ -243,6 +244,10 @@ main {
   width: 1px;
   background: rgba(94, 45, 17, 0.26);
   pointer-events: none;
+}
+
+.bottom-tabs .tab:active {
+  transform: translateY(13px);
 }
 
 @supports (padding: constant(safe-area-inset-bottom)) {
