@@ -183,12 +183,12 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 10px 12px calc(env(safe-area-inset-bottom, 0px) + 30px);
-  min-height: 104px;
+  padding: 4px 12px calc(env(safe-area-inset-bottom, 0px) + 6px);
+  min-height: 78px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
-  align-items: start;
+  align-items: end;
   background: linear-gradient(180deg, #f7c286 0%, #dc8b4b 52%, #b85f2f 100%);
   backdrop-filter: blur(12px);
   border-top: none;
@@ -209,7 +209,7 @@ main {
 
 .bottom-tabs .tab {
   position: relative;
-  align-self: start;
+  align-self: end;
   width: 100%;
 }
 
@@ -226,7 +226,7 @@ main {
 
 @supports (padding: constant(safe-area-inset-bottom)) {
   .bottom-tabs {
-    padding-bottom: calc(constant(safe-area-inset-bottom) + 30px);
+    padding-bottom: calc(constant(safe-area-inset-bottom) + 6px);
   }
 
   .bottom-tabs::after {
