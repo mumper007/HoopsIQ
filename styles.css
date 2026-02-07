@@ -202,7 +202,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 2px 12px calc(env(safe-area-inset-bottom, 0px) + 4px);
+  padding: 2px 12px 2px;
   min-height: 68px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -213,6 +213,17 @@ main {
   border-top: none;
   box-shadow: 0 -1px 0 rgba(94, 45, 17, 0.24);
   z-index: 10;
+}
+
+.bottom-tabs::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+  height: env(safe-area-inset-bottom, 0px);
+  background: linear-gradient(180deg, #f7c286 0%, #dc8b4b 52%, #b85f2f 100%);
+  pointer-events: none;
 }
 
 .bottom-tabs .tab {
@@ -234,7 +245,12 @@ main {
 
 @supports (padding: constant(safe-area-inset-bottom)) {
   .bottom-tabs {
-    padding-bottom: calc(constant(safe-area-inset-bottom) + 4px);
+    padding-bottom: 2px;
+  }
+
+  .bottom-tabs::after {
+    bottom: calc(-1 * constant(safe-area-inset-bottom));
+    height: constant(safe-area-inset-bottom);
   }
 }
 
