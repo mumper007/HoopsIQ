@@ -215,17 +215,6 @@ main {
   z-index: 10;
 }
 
-.bottom-tabs::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-  height: env(safe-area-inset-bottom, 0px);
-  background: linear-gradient(180deg, #f7c286 0%, #dc8b4b 52%, #b85f2f 100%);
-  pointer-events: none;
-}
-
 .bottom-tabs .tab {
   position: relative;
   align-self: end;
@@ -246,11 +235,6 @@ main {
 @supports (padding: constant(safe-area-inset-bottom)) {
   .bottom-tabs {
     padding-bottom: 2px;
-  }
-
-  .bottom-tabs::after {
-    bottom: calc(-1 * constant(safe-area-inset-bottom));
-    height: constant(safe-area-inset-bottom);
   }
 }
 
