@@ -215,6 +215,13 @@ main {
   z-index: 10;
 }
 
+@media (display-mode: standalone) {
+  .bottom-tabs {
+    bottom: -14px;
+    min-height: 56px;
+  }
+}
+
 .bottom-tabs .tab {
   position: relative;
   align-self: end;
