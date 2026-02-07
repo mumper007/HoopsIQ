@@ -217,8 +217,13 @@ main {
 
 @media (display-mode: standalone) {
   .bottom-tabs {
-    bottom: 0;
-    min-height: 64px;
+    bottom: -6px;
+    min-height: 58px;
+    padding-bottom: 0;
+  }
+
+  .bottom-tabs .tab {
+    align-self: end;
   }
 }
 
