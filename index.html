@@ -8,8 +8,14 @@
     />
     <meta name="theme-color" content="#0f172a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="HoopsIQ" />
+    <meta name="apple-mobile-web-app-title" content="Hoops     IQ" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
     <link rel="apple-touch-icon" href="icons/icon-180.png" />
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="styles.css" />
@@ -20,7 +26,7 @@
       <div>
         <div class="title-wrap">
           <span class="title-ball" aria-hidden="true"></span>
-          <h1>HoopsIQ</h1>
+          <h1>Hoops IQ</h1>
         </div>
       </div>
       <div class="header-actions"></div>
@@ -82,10 +88,34 @@
     </main>
 
     <nav class="bottom-tabs" role="tablist">
-      <button class="tab active" data-tab="kids" role="tab">Players</button>
-      <button class="tab" data-tab="game" role="tab">Games</button>
-      <button class="tab" data-tab="season" role="tab">Stats</button>
-      <button class="tab" data-tab="settings" role="tab">Settings</button>
+      <button class="tab active" data-tab="kids" role="tab">
+        <svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.25" fill="none" stroke="currentColor" stroke-width="1.8" />
+          <path d="M5 18.25c1.6-2.8 3.9-4.25 7-4.25s5.4 1.45 7 4.25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" />
+        </svg>
+        <span class="tab-label">Players</span>
+      </button>
+      <button class="tab" data-tab="game" role="tab">
+        <svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8" />
+          <path d="M5.2 12h13.6M12 5.2v13.6M7.4 7.4c2 1.6 2 7.6 0 9.2M16.6 7.4c-2 1.6-2 7.6 0 9.2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4" />
+        </svg>
+        <span class="tab-label">Games</span>
+      </button>
+      <button class="tab" data-tab="season" role="tab">
+        <svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 18.5h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" />
+          <path d="M7.25 16V12M12 16V8M16.75 16v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" />
+        </svg>
+        <span class="tab-label">Stats</span>
+      </button>
+      <button class="tab" data-tab="settings" role="tab">
+        <svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.8" />
+          <path d="M12 5.4v1.7M12 16.9v1.7M18.6 12h-1.7M7.1 12H5.4M16.8 7.2l-1.2 1.2M8.4 15.6l-1.2 1.2M16.8 16.8l-1.2-1.2M8.4 8.4 7.2 7.2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" />
+        </svg>
+        <span class="tab-label">Options</span>
+      </button>
     </nav>
 
     <dialog id="import-dialog">
@@ -188,7 +218,6 @@
       </div>
 
       <div class="card game-mode-card">
-        <div class="card-title">Stat Buttons</div>
         <div class="shot-grid">
           <div class="shot-row">
             <button class="stat stat-made" data-stat="ft">Made FT</button>
