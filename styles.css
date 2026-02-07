@@ -355,6 +355,10 @@ main {
   margin-top: 12px;
 }
 
+#panel-settings .card .row + .row {
+  margin-top: 10px;
+}
+
 .field {
   display: flex;
   flex-direction: column;
