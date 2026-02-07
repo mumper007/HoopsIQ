@@ -13,12 +13,18 @@
 
 html {
   min-height: 100%;
+  height: 100%;
   background: #b85f2f;
+  overflow: hidden;
+  overscroll-behavior-y: none;
 }
 
 body {
   min-height: 100%;
   min-height: 100dvh;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior-y: none;
 }
 
 * {
@@ -109,7 +115,11 @@ h1 {
 }
 
 main {
-  padding: calc(120px + env(safe-area-inset-top, 0px)) 16px 132px;
+  height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  padding: calc(120px + env(safe-area-inset-top, 0px)) 16px calc(132px + env(safe-area-inset-bottom, 0px));
   max-width: 980px;
   margin: 0 auto;
 }
@@ -117,6 +127,7 @@ main {
 @supports (padding: constant(safe-area-inset-top)) {
   main {
     padding-top: calc(120px + constant(safe-area-inset-top));
+    padding-bottom: calc(132px + constant(safe-area-inset-bottom));
   }
 }
 
@@ -191,8 +202,8 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 8px 12px 18px;
-  min-height: 88px;
+  padding: 8px 12px calc(env(safe-area-inset-bottom, 0px) + 20px);
+  min-height: 94px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
@@ -233,6 +244,10 @@ main {
 }
 
 @supports (padding: constant(safe-area-inset-bottom)) {
+  .bottom-tabs {
+    padding-bottom: calc(constant(safe-area-inset-bottom) + 20px);
+  }
+
   .bottom-tabs::after {
     bottom: calc(-1 * constant(safe-area-inset-bottom));
     height: constant(safe-area-inset-bottom);
