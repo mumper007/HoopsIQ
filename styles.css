@@ -183,7 +183,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 4px 12px calc(env(safe-area-inset-bottom, 0px) + 6px);
+  padding: 6px 12px 6px;
   min-height: 78px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -225,10 +225,6 @@ main {
 }
 
 @supports (padding: constant(safe-area-inset-bottom)) {
-  .bottom-tabs {
-    padding-bottom: calc(constant(safe-area-inset-bottom) + 6px);
-  }
-
   .bottom-tabs::after {
     bottom: calc(-1 * constant(safe-area-inset-bottom));
     height: constant(safe-area-inset-bottom);
