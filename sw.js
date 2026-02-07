@@ -1,4 +1,4 @@
-const CACHE_NAME = "hoops-stats-v1";
+const CACHE_NAME = "hoops-stats-v2";
 const ASSETS = [
   "/",
   "/index.html",
@@ -29,6 +29,19 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      try {
+        const fresh = await fetch(event.request);
+        if (fresh && fresh.ok) {
+          cache.put(event.request, fresh.clone());
+        }
+        return fresh;
+      } catch (error) {
+        const cached = (await cache.match(event.request)) || (await caches.match(event.request));
+        if (cached) return cached;
+        throw error;
+      }
+    })()
   );
 });

@@ -58,7 +58,7 @@ body {
 h1 {
   margin: 0;
   font-family: "Bebas Neue", "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
-  font-size: 3rem;
+  font-size: 5rem;
   margin-left: 0;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.22);
   position: relative;
@@ -69,12 +69,12 @@ h1 {
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding-left: 90px;
+  padding-left: 75px;
 }
 
 .title-ball {
   position: absolute;
-  left: 0;
+  left: -20px;
   top: 50%;
   transform: translateY(-50%);
   width: 100px;
@@ -949,6 +949,6 @@ body.debug-safe .safe-area-overlay {
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-size: 2.6rem;
   }
 }
