@@ -11,9 +11,14 @@
   --radius: 12px;
 }
 
-html,
+html {
+  min-height: 100%;
+  background: #b85f2f;
+}
+
 body {
   min-height: 100%;
+  min-height: 100dvh;
 }
 
 * {
