@@ -183,12 +183,12 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 6px 12px 6px;
-  min-height: 78px;
+  padding: 8px 12px 10px;
+  min-height: 88px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
-  align-items: end;
+  align-items: center;
   background: linear-gradient(180deg, #f7c286 0%, #dc8b4b 52%, #b85f2f 100%);
   backdrop-filter: blur(12px);
   border-top: none;
@@ -209,7 +209,7 @@ main {
 
 .bottom-tabs .tab {
   position: relative;
-  align-self: end;
+  align-self: center;
   width: 100%;
 }
 
