@@ -30,7 +30,7 @@ body {
 }
 
 .app-header {
-  padding: calc(30px + env(safe-area-inset-top, 0px)) 24px 12px;
+  padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,7 +46,7 @@ body {
 
 @supports (padding: constant(safe-area-inset-top)) {
   .app-header {
-    padding-top: calc(30px + constant(safe-area-inset-top));
+    padding-top: calc(20px + constant(safe-area-inset-top));
   }
 }
 
@@ -191,6 +191,17 @@ main {
   z-index: 10;
 }
 
+.bottom-tabs::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+  height: env(safe-area-inset-bottom, 0px);
+  background: linear-gradient(180deg, #f7c286 0%, #dc8b4b 52%, #b85f2f 100%);
+  pointer-events: none;
+}
+
 .bottom-tabs .tab {
   position: relative;
   align-self: start;
@@ -211,6 +222,11 @@ main {
 @supports (padding: constant(safe-area-inset-bottom)) {
   .bottom-tabs {
     padding-bottom: calc(constant(safe-area-inset-bottom) + 30px);
+  }
+
+  .bottom-tabs::after {
+    bottom: calc(-1 * constant(safe-area-inset-bottom));
+    height: constant(safe-area-inset-bottom);
   }
 }
 
