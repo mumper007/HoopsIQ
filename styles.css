@@ -217,13 +217,14 @@ main {
 
 @media (display-mode: standalone) {
   .bottom-tabs {
-    bottom: -6px;
-    min-height: 58px;
-    padding-bottom: 0;
+    bottom: 0;
+    min-height: 64px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
   }
 
   .bottom-tabs .tab {
     align-self: end;
+    transform: none;
   }
 }
 
@@ -247,6 +248,12 @@ main {
 @supports (padding: constant(safe-area-inset-bottom)) {
   .bottom-tabs {
     padding-bottom: 2px;
+  }
+
+  @media (display-mode: standalone) {
+    .bottom-tabs {
+      padding-bottom: calc(constant(safe-area-inset-bottom) + 2px);
+    }
   }
 }
 
