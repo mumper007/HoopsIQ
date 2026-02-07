@@ -30,7 +30,7 @@ body {
 }
 
 .app-header {
-  padding: 30px 24px 12px;
+  padding: calc(30px + env(safe-area-inset-top, 0px)) 24px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,6 +42,12 @@ body {
   z-index: 5;
   border-bottom: none;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+@supports (padding: constant(safe-area-inset-top)) {
+  .app-header {
+    padding-top: calc(30px + constant(safe-area-inset-top));
+  }
 }
 
 .app-header::after {
