@@ -458,7 +458,7 @@ function renderKids() {
   kidsList.innerHTML = "";
 
   if (state.kids.length === 0) {
-    kidsList.innerHTML = `<div class="muted">No kids added yet.</div>`;
+    kidsList.innerHTML = `<div class="muted">No players added yet.</div>`;
     return;
   }
 
@@ -1024,8 +1024,8 @@ function updateActiveStatus() {
     if (gameModeOpponent) {
       gameModeOpponent.textContent = "Opponent";
     }
-    activeKidName.textContent = "Select a kid";
-    activeKidMeta.textContent = "No kid selected";
+    activeKidName.textContent = "Select a player";
+    activeKidMeta.textContent = "No player selected";
     activeKidPoints.textContent = "0 PTS";
     if (activeKidFgText) activeKidFgText.textContent = "Field Goals: 0/0 = 0%";
     if (activeKidEff) activeKidEff.textContent = "EFF 0";
